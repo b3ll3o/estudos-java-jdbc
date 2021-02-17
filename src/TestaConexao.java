@@ -1,12 +1,13 @@
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class TestaConexao {
 
 	public static void main(String[] args) throws SQLException {
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost/java_jdbc", "postgres", "123");
-		
+		ConnectionFactory connectionFactory = new ConnectionFactory();
+
+		Connection connection = connectionFactory.createConnection();
+
 		connection.close();
 	}
 }
