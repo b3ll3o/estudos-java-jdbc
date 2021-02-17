@@ -1,7 +1,7 @@
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class TestaListagem {
 
@@ -10,9 +10,9 @@ public class TestaListagem {
 		
 		Connection connection = connectionFactory.createConnection();
 		
-		Statement statement = connection.createStatement();
+		PreparedStatement statement = connection.prepareStatement("select * from produto");
 		
-		boolean execute = statement.execute("select * from produto");
+		boolean execute = statement.execute();
 		
 		System.out.println(execute);
 		

@@ -1,4 +1,5 @@
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -6,14 +7,20 @@ import java.sql.Statement;
 public class TestaInsercao {
 
 	public static void main(String[] args) throws SQLException {
+		String nome = "Novo Produto";
+		String descricao = "Novo Produto no banco de dados";
+		
 		ConnectionFactory connectionFactory = new ConnectionFactory();
 		Connection connection = connectionFactory.createConnection();
 		
-		Statement statement = connection.createStatement();
-		
-		statement.execute(
-				"INSERT INTO produto (nome, descricao) VALUES ('Novo Produto', 'Novo Produto no banco de dados')",
+		PreparedStatement statement = connection.prepareStatement(
+				"INSERT INTO produto (nome, descricao) VALUES (?, ?)", 
 				Statement.RETURN_GENERATED_KEYS);
+		
+		statement.setString(1, nome);
+		statement.setString(2, descricao);
+		
+		statement.execute();
 		
 		ResultSet keys = statement.getGeneratedKeys();
 		
