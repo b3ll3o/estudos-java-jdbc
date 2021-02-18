@@ -29,6 +29,8 @@ public class TestaInsercao {
 			System.out.println("Novo produto adicionado com id: " + id);
 		}
 		
+		statement.close();
+		
 		connection.close();
 	}
 }

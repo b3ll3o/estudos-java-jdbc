@@ -26,6 +26,8 @@ public class TestaListagem {
 			System.out.println("Id: " + id + ", Nome: " + nome + ", Descrição: " + descricao); 
 		}
 		
+		statement.close();
+		
 		connection.close();
 	}
 }

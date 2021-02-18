@@ -19,6 +19,8 @@ public class TestaRemocao {
 		
 		System.out.println(count);
 		
+		statement.close();
+		
 		connection.close();
 	}
 }
