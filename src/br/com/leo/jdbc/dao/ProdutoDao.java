@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.leo.jdbc.modelo.Categoria;
 import br.com.leo.jdbc.modelo.Produto;
 
 public class ProdutoDao {
@@ -38,6 +39,29 @@ public class ProdutoDao {
 	
 	public List<Produto> findAll() throws SQLException{
 		try(PreparedStatement statement = connection.prepareStatement("SELECT * FROM produto")){
+			statement.execute();
+							
+			try(ResultSet resultSet = statement.getResultSet()){
+				
+				List<Produto> produtos = new ArrayList<>();
+				while(resultSet.next()) {
+					Integer id = resultSet.getInt("id");
+					String nome = resultSet.getString("nome");
+					String descricao = resultSet.getString("descricao");
+					
+					Produto produto = new Produto(id, nome, descricao);
+					
+					produtos.add(produto);
+				}
+				return produtos;
+			}				
+		}	
+	}
+	
+	public List<Produto> find(Categoria categoria) throws SQLException{
+		try(PreparedStatement statement = connection.prepareStatement("SELECT * FROM produto WHERE categoria_id = ?")){
+			
+			statement.setInt(1, categoria.getId());
 			statement.execute();
 							
 			try(ResultSet resultSet = statement.getResultSet()){

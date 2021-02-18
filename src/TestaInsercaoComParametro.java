@@ -13,10 +13,10 @@ public class TestaInsercaoComParametro {
 			connection.setAutoCommit(false);
 			
 			try(PreparedStatement preparedStatement = connection.prepareStatement(
-					"INSERT INTO produto (nome, descricao) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+					"INSERT INTO produto (nome, descricao, categoria_id) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 				
-				adicionarVariavel("Televisão", "Televisão samsung", preparedStatement);
-				adicionarVariavel("microondas", "microondas samsung", preparedStatement);
+				adicionarVariavel("Televisão", "Televisão samsung", 1, preparedStatement);
+				adicionarVariavel("microondas", "microondas samsung", 1, preparedStatement);
 				
 				connection.commit();
 				
@@ -28,10 +28,11 @@ public class TestaInsercaoComParametro {
 		}
 	}
 
-	private static void adicionarVariavel(String nome, String descricao, PreparedStatement preparedStatement)
+	private static void adicionarVariavel(String nome, String descricao, Integer categoriaId, PreparedStatement preparedStatement)
 			throws SQLException {
 		preparedStatement.setString(1, nome);
 		preparedStatement.setString(2, descricao);
+		preparedStatement.setInt(3, categoriaId);
 
 		preparedStatement.execute();
 

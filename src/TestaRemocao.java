@@ -13,10 +13,6 @@ public class TestaRemocao {
 				statement.setInt(1, 2);
 				
 				statement.execute();
-				
-				int count = statement.getUpdateCount();
-				
-				System.out.println(count);
 			}
 		}
 	}
