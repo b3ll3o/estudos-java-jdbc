@@ -6,21 +6,18 @@ public class TestaRemocao {
 
 	public static void main(String[] args) throws SQLException {
 		
-		ConnectionFactory connectionFactory = new ConnectionFactory();
-		Connection connection = connectionFactory.createConnection();
-		
-		PreparedStatement statement = connection.prepareStatement("DELETE FROM produto WHERE id > ?");
-		
-		statement.setInt(1, 2);
-		
-		statement.execute();
-		
-		int count = statement.getUpdateCount();
-		
-		System.out.println(count);
-		
-		statement.close();
-		
-		connection.close();
+		try(Connection connection = new ConnectionFactory().createConnection()){
+			
+			try(PreparedStatement statement = connection.prepareStatement("DELETE FROM produto WHERE id > ?")){
+				
+				statement.setInt(1, 2);
+				
+				statement.execute();
+				
+				int count = statement.getUpdateCount();
+				
+				System.out.println(count);
+			}
+		}
 	}
 }
